@@ -1,6 +1,6 @@
 # Statistical-autoencoder
 
-This is an implementation of : Efficient classification using the latent space of a Non-Parametric Supervised Autoencoder for metabolomics datasets of clinical studies. In this repository, you will find the code to perform the clinical study described in the paper. For the statistical and comparison part, you can find it here
+This is an implementation of : Efficient classification using the latent space of a Non-Parametric Supervised Autoencoder for metabolomics datasets of clinical studies. In this repository, you will find the code to perform the clinical study described in the paper. For the statistical and comparison part, you can find it here : https://github.com/Gustoaxel/Clinical-autoencoder
   
 When using this code , please cite Barlaud, M., Guyard, F.: Learning sparse deep neural networks 
 using efficient structured projections on convex constraints for green ai. ICPR 2020 Milan Italy (2020)
@@ -28,10 +28,15 @@ $ conda install -c anaconda pip
 $ cd path/to/project
 $ pip install -r requirements.txt (Warning, before launching this command you must go to the directory where the requirements.txt is located)
 ```
+
+To install captum make sure you have a c++ compiler
+
 ## How to use : 
 
 Everything is ready, now you have to open the code in spyder (top left button). 
 Then run it with the Run files button. It is possible to change the parameters and the database studied directly in the code. 
+
+Note that we have provided in this directory only the LUNG database. To obtain the Brain and covid databases please contact Barlaud Michel (barlaud@i3s.unice.fr) or Pourcher Thierry (thierry.pourcher@univ-cotedazur.fr)
 
 Here is a list of modifiable parameters with our values : 
 
