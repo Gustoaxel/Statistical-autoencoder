@@ -1,6 +1,6 @@
 # Statistical-autoencoder
 
-This is an implementation of : Efficient classification using the latent space of a Non-Parametric Supervised Autoencoder for metabolomics datasets of clinical studies. In this repository, you will find the code to perform the clinical study described in the paper. For the statistical and comparison part, you can find it here : https://github.com/Gustoaxel/Clinical-autoencoder
+This is an implementation of : Efficient classification using the latent space of a Non-Parametric Supervised Autoencoder for metabolomics datasets of clinical studies. In this repository, you will find the code to perform the statistical study described in the paper. For the clinical part, you can find it here : https://github.com/Gustoaxel/Clinical-autoencoder
   
 When using this code , please cite Barlaud, M., Guyard, F.: Learning sparse deep neural networks 
 using efficient structured projections on convex constraints for green ai. ICPR 2020 Milan Italy (2020)
