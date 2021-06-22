@@ -998,7 +998,7 @@ def RunAutoEncoder(net, criterion, optimizer, lr_scheduler, train_dl, train_len,
         Lung_encoder = data_encoder.cpu().detach().numpy()
         colunms = [x for x in range(Lung_encoder.shape[1]-1)] +['label']
         res =pd.DataFrame(Lung_encoder,columns= colunms)
-        res.to_csv('{}encoder_tiro_{}.csv'.format(outputPath, str(run_model)),sep=';')
+        #res.to_csv('{}encoder_tiro_{}.csv'.format(outputPath, str(run_model)),sep=';')
         # Save decoder data
         Lung_decoded = data_decoded.cpu().detach().numpy()
         Label = ['Label']+list(Lung_decoded[:,-1].astype(int)+1)
@@ -1008,7 +1008,7 @@ def RunAutoEncoder(net, criterion, optimizer, lr_scheduler, train_dl, train_len,
         Lung = np.hstack( (feature_name.reshape(-1,1), Lung.T) )
         Lung = np.vstack((Label, Lung))
         res = pd.DataFrame(Lung)
-        res.to_csv('{}decoded_{}.csv'.format(outputPath, str(run_model)),sep=';',index=0, header=0) 
+        #res.to_csv('{}decoded_{}.csv'.format(outputPath, str(run_model)),sep=';',index=0, header=0) 
         print("-----------------------")
         print("Saved file to ",str(outputPath))
         print("-----------------------")

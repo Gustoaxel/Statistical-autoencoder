@@ -147,7 +147,7 @@ if __name__=='__main__':
 
     X,Y,feature_name,label_name, patient_name, LFC_Rank = ft.ReadData(file_name, TIRO_FORMAT=TIRO_FORMAT, doScale = doScale) # Load files datas
     
-    LFC_Rank.to_csv(outputPath+'/LFC_rank.csv')
+    #LFC_Rank.to_csv(outputPath+'/LFC_rank.csv')
         
     feature_len = len(feature_name)
     class_len = len(label_name)
@@ -317,7 +317,7 @@ if __name__=='__main__':
         if SEED == Seed[0] : 
                 df_softmax = softmax
                 df_softmax.index = df_softmax["Name"]
-                softmax.to_csv('{}softmax.csv'.format(outputPath),sep=';',index=0)
+                #softmax.to_csv('{}softmax.csv'.format(outputPath),sep=';',index=0)
         else : 
                 softmax.index = softmax["Name"]
                 df_softmax = df_softmax.join(softmax , rsuffix="_")
@@ -346,29 +346,32 @@ if __name__=='__main__':
     
         s+= 1
         
-    if class_len ==2 : 
-        df_softmax = df_softmax.drop(["Name", "Name_", "Labels_", "Proba class 1", "Proba class 1_" ], axis = 1)
-        df_softmax.columns = ["Labels", "1", "2", "3"]
+    #if class_len ==2 : 
+    #    if len(Seed)==1 : 
+    #        pass
+    #    else : 
+    #        df_softmax = df_softmax.drop(["Name", "Name_", "Labels_", "Proba class 1", "Proba class 1_" ], axis = 1)
+        #df_softmax.columns = ["Labels", "1", "2", "3"]
         
-        for l in range(df_softmax.shape[0]):
-            if df_softmax.iloc[l,0] == 1:
-                df_softmax.iloc[l,:] = df_softmax.iloc[l,:].where(df_softmax.iloc[l,1:] > 0.5)
-            else:
-                df_softmax.iloc[l,:] = df_softmax.iloc[l,:].where(df_softmax.iloc[l,1:] < 0.5)
-        df_softmax = df_softmax.dropna(how='all')
+    #    for l in range(df_softmax.shape[0]):
+    #        if df_softmax.iloc[l,0] == 1:
+    #            df_softmax.iloc[l,:] = df_softmax.iloc[l,:].where(df_softmax.iloc[l,1:] > 0.5)
+    #        else:
+    #            df_softmax.iloc[l,:] = df_softmax.iloc[l,:].where(df_softmax.iloc[l,1:] < 0.5)
+    #    df_softmax = df_softmax.dropna(how='all')
 
         
-    try : 
-        df = pd.read_csv('{}Labelspred_softmax.csv'.format(outputPath),sep=';', header = 0 )
-        data_pd = pd.read_csv('datas/FAIR/'+ str(file_name[:-12])+ ".csv",delimiter=';', decimal=",", header=0, encoding = 'ISO-8859-1')
-    except : 
-        data_pd = pd.read_csv('datas/FAIR/'+ str(file_name),delimiter=';', decimal=",", header=0, encoding = 'ISO-8859-1')
+    #try : 
+   #     df = pd.read_csv('{}Labelspred_softmax.csv'.format(outputPath),sep=';', header = 0 )
+   #     data_pd = pd.read_csv('datas/FAIR/'+ str(file_name[:-12])+ ".csv",delimiter=';', decimal=",", header=0, encoding = 'ISO-8859-1')
+   # except : 
+   #     data_pd = pd.read_csv('datas/FAIR/'+ str(file_name),delimiter=';', decimal=",", header=0, encoding = 'ISO-8859-1')
             
-    proba = df.values[:,2:].astype(float)
+    #proba = df.values[:,2:].astype(float)
     
-    df.index = df.iloc[:,0]
-    df = df.join(data_pd.T , rsuffix='_' , how = 'right')
-    df.iloc[: , 1:4].to_csv('{}Labelspred_softmax.csv'.format(outputPath),sep=';')
+    #df.index = df.iloc[:,0]
+    #df = df.join(data_pd.T , rsuffix='_' , how = 'right')
+    #df.iloc[: , 1:4].to_csv('{}Labelspred_softmax.csv'.format(outputPath),sep=';')
     
     
     df_accTrain, df_acctest = ft.showClassResult(accuracy_train, accuracy_test, nfold*len(Seed), label_name)
