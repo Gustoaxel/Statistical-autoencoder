@@ -29,21 +29,36 @@ $ cd path/to/project
 $ pip install -r requirements.txt (Warning, before launching this command you must go to the directory where the requirements.txt is located)
 ```
 
-To install captum make sure you have a c++ compiler
+To install pytorch make sure you have a c++ compiler. If this is not the case, please follow the instructions in this link: https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation?view=msvc-160
 
 ## How to use : 
 
-Everything is ready, now you have to open the code in spyder (top left button). 
+Everything is ready, now you have to open the code in spyder (top left button). In our case the files are named : "script_diagnostic.py" and "Script_autoencoder_4folds.py"
+
 Then run it with the Run files button. It is possible to change the parameters and the database studied directly in the code. 
 
-Note that we have provided in this directory only the LUNG database. To obtain the Brain and covid databases please contact Barlaud Michel (barlaud@i3s.unice.fr) or Pourcher Thierry (thierry.pourcher@univ-cotedazur.fr)
+Note that we have provided in this directory only the LUNG and Brain databases. To obtain the Covid database please contact Barlaud Michel (barlaud@i3s.unice.fr) or Pourcher Thierry (thierry.pourcher@univ-cotedazur.fr)
 
-Here is a list of modifiable parameters with our values : 
+To use your own data it is important that it is in the same format as the provided databases. If this is the case then you just have to put the .csv file in the datas/FAIR directory and then modify the file_name variable = "something.csv" in the code. 
+
+Here is a list of modifiable parameters with our values for "Script_autoencoder_4folds.py": 
 
 | Parameters | line in code | recommended value |
 |:--------------|:-------------:|--------------:|
-| ETA | 129 | 75|
-| Seed | 59 | 4, 5, 6 |
-| Database | 85 | Lung |
-| Projection | 124 | l11 |
-| Scaling | 145 | True |
+| ETA | 123 | 75|
+| Seed | 55 | 4, 5, 6 |
+| Database | 81 | Lung |
+| Projection | 119 | l11 |
+| Metabolomic selection | 133 | True |
+| Scaling | 140 | True |
+
+Here is a list of modifiable parameters with our values for "script_diagnostic.py": 
+
+| Parameters | line in code | recommended value |
+|:--------------|:-------------:|--------------:|
+| ETA | 128 | 600 |
+| Seed | 59 | 5 |
+| Database | 84 | Lung |
+| Projection | 123 | l11 |
+| Metabolomic selection | 138 | False |
+| Scaling | 144 | True |
