@@ -52,8 +52,7 @@ if __name__=='__main__':
 #------------ Parameters ---------
    
     # Set seed
-    Seed = [4, 5, 6]
-
+    Seed = [5]
     
     
     # Set device (Gpu or cpu)
@@ -61,12 +60,12 @@ if __name__=='__main__':
     
     nfold = 4
     N_EPOCHS = 10
-    N_EPOCHS_MASKGRAD = 10      # number of epochs for trainning masked graident
-    # learning rate 
-    LR = 0.0005      
-    BATCH_SIZE=8
+    N_EPOCHS_MASKGRAD = 10      # number of epochs for training masked gradient 
+    LR = 0.0005   # Learning rate    
+    BATCH_SIZE=96     # Optimize the trade off betwwen accuracy and Computational time 
     LOSS_LAMBDA = 0.0005         # Total loss =λ * loss_autoencoder +  loss_classification
     bW=1 # Kernel size for distributions
+    ETA = 300  #Cotrol feature selection 
     
 
     criterion_reconstruction = nn.SmoothL1Loss(  reduction='sum'  ) # SmoothL1Loss
@@ -120,7 +119,7 @@ if __name__=='__main__':
 #        TYPE_PROJ = ft.proj_l21ball        # projection l21
         TYPE_PROJ_NAME = TYPE_PROJ.__name__
         
-    ETA = 75  
+   
     AXIS = 0          #  for PGL21
     
      ####### Set of parameters : #######
@@ -130,8 +129,8 @@ if __name__=='__main__':
   
     # Top genes params 
 
-#    DoTopGenes = True
-    DoTopGenes = False
+    DoTopGenes = True
+#    DoTopGenes = False
 
 #    PERFORM_MA = True
     PERFORM_MA = False
