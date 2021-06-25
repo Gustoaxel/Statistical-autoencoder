@@ -1,14 +1,13 @@
 # Statistical-autoencoder
 
-This is an implementation of : Efficient classification using the latent space of a Non-Parametric Supervised Autoencoder for metabolomics datasets of clinical studies. In this repository, you will find the code to perform the statistical study described in the paper. For the clinical part, you can find it here : https://github.com/Gustoaxel/Clinical-autoencoder
+This is an implementation of : An efficient diagnostic that uses the latent space of a Non-Parametric Supervised Autoencoder for metabolomic datasets of clinical studies. In this repository, you will find the code to perform the statistical study described in the paper. For the clinical part only, you can find it here : https://github.com/Gustoaxel/Clinical-autoencoder
   
 When using this code , please cite Barlaud, M., Guyard, F.: Learning sparse deep neural networks 
 using efficient structured projections on convex constraints for green ai. ICPR 2020 Milan Italy (2020)
 
 and 
 
-Axel Gustovic, Celine Ocelli, Thierry Pourcher and Michel Barlaud : Efficient diagnostic using the 
-latent space ofa Non-Parametric Supervised Autoencoderfor metabolomics datasets
+Axel Gustovic, Celine Ocelli, Thierry Pourcher and Michel Barlaud : An efficient diagnostic that uses the latent space of a Non-Parametric Supervised Autoencoder for metabolomic datasets of clinical studies
 
 
 ## Table of Contents
@@ -25,11 +24,11 @@ You can now download the code in zip format and unzip it on your computer.
 Then, to execute our script, we will need several dependencies. To install them you will have to run this command in the spyder console (at the bottom right).
 ```
 $ conda install -c anaconda pip
-$ cd path/to/project
-$ pip install -r requirements.txt (Warning, before launching this command you must go to the directory where the requirements.txt is located)
+$ pip install -r requirements.txt 
 ```
+(Warning, before launching this command you must go to the directory where the requirements.txt is located)
 
-To install pytorch make sure you have a c++ compiler. If this is not the case, please follow the instructions in this link: https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation?view=msvc-160
+To install pytorch make sure you have a c++ compiler. If this is not the case, please follow the instructions in this link: https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation?view=msvc-160 for windows or install Xcode app if you use mac os
 
 ## How to use : 
 
@@ -45,12 +44,12 @@ Here is a list of modifiable parameters with our values for "Script_autoencoder_
 
 | Parameters | line in code | recommended value |
 |:--------------|:-------------:|--------------:|
-| ETA | 123 | 75|
-| Seed | 55 | 4, 5, 6 |
-| Database | 81 | Lung |
-| Projection | 119 | l11 |
-| Metabolomic selection | 133 | True |
-| Scaling | 140 | True |
+| ETA | 61 | 75|
+| Seed | 60 | 4, 5, 6 |
+| Database | 86 | Lung |
+| Projection | 124 | l11 |
+| Metabolomic selection | 135 | True |
+| Scaling | 142 | True |
 
 Here is a list of modifiable parameters with our values for "script_diagnostic.py": 
 
