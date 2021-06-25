@@ -16,11 +16,11 @@ latent space ofa Non-Parametric Supervised Autoencoderfor metabolomics datasets
 
 Params : 
     
-    - Seed (line 54)
-    - Database (line 81)
-    - Projection (line 119)
-    - ETA (line 123)
-    - Standardization (line 140)
+    - Seed (line 60)
+    - Database (line 86)
+    - Projection (line 124)
+    - ETA (line 61)
+    - Standardization (line 142)
     
     
 """
@@ -50,9 +50,15 @@ import seaborn as sns
   
 if __name__=='__main__':
 #------------ Parameters ---------
+
+####### Set of parameters : #######
+    # Lung : ETA = 75 Seed = [4, 5, 6]
+    # Brain : ETA = 25 Seed = [4, 5, 6]
+    # Covid : ETA = 200 Seed = [4, 5, 6]
    
     # Set seed
     Seed = [5]
+    ETA = 75  #Control feature selection 
     
     
     # Set device (Gpu or cpu)
@@ -62,10 +68,10 @@ if __name__=='__main__':
     N_EPOCHS = 10
     N_EPOCHS_MASKGRAD = 10      # number of epochs for training masked gradient 
     LR = 0.0005   # Learning rate    
-    BATCH_SIZE=96     # Optimize the trade off betwwen accuracy and Computational time 
+    BATCH_SIZE=8     # Optimize the trade off between accuracy and Computational time 
     LOSS_LAMBDA = 0.0005         # Total loss =λ * loss_autoencoder +  loss_classification
     bW=1 # Kernel size for distributions
-    ETA = 300  #Cotrol feature selection 
+    
     
 
     criterion_reconstruction = nn.SmoothL1Loss(  reduction='sum'  ) # SmoothL1Loss
@@ -122,10 +128,7 @@ if __name__=='__main__':
    
     AXIS = 0          #  for PGL21
     
-     ####### Set of parameters : #######
-    # Lung : ETA = 75 Seed = [4, 5, 6]
-    # Brain : ETA = 25 Seed = [4, 5, 6]
-    # Covid : ETA = 200 Seed = [4, 5, 6]
+     
   
     # Top genes params 
 

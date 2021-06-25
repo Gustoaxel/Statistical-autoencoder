@@ -19,11 +19,11 @@ latent space ofa Non-Parametric Supervised Autoencoderfor metabolomics datasets
 
 Params : 
     
-    - Seed (line 59)
-    - Database (line 85)
-    - Projection (line 124)
-    - ETA (line 129)
-    - Scaling (line 145)
+    - Seed (line 65)
+    - Database (line 92)
+    - Projection (line 131)
+    - ETA (line 66)
+    - Scaling (line 148)
     
 
 """
@@ -55,8 +55,16 @@ import analyzer.model_analyzer as ma
   
 if __name__=='__main__':
 #------------ Parameters ---------
+
+    ####### Set of parameters : #######
+    # Lung : ETA = 600 Seed = 5
+    # Brain : ETA = 300 Seed = 
+    # Covid : ETA = 300 Seed = 5
+    
     # Set seed
     Seed = [5]
+    ETA = 600   #Control feature selection
+    
     
     
     # Set device (Gpu or cpu)
@@ -125,13 +133,9 @@ if __name__=='__main__':
 
         TYPE_PROJ_NAME = TYPE_PROJ.__name__
         
-    ETA = 600   # for Proximal_PGL1 or Proximal_PGL11
     AXIS = 0          #  for PGL21
     
-    ####### Set of parameters : #######
-    # Lung : ETA = 600 Seed = 5
-    # Brain : ETA = 300 Seed = 
-    # Covid : ETA = 300 Seed = 5
+
   
 
 #    DoTopGenes = True
