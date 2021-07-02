@@ -5,7 +5,7 @@
 """
 Copyright   I3S CNRS UCA 
 
-This code is an implementation of realisticdiagnostic clinical simulation discribe in the article :
+This code is an implementation of realistic diagnostic clinical simulation discribe in the article :
 Efficient diagnostic using the latent space ofa Non-Parametric Supervised Autoencoderfor 
 metabolomics datasets
 
