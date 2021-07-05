@@ -1874,9 +1874,9 @@ def Data_Recon(X_ajust, Y_ajust, BATCH_SIZE, net, feature_name, doRecal, run_mod
     Lung = np.vstack((Label, Lung))
     res = pd.DataFrame(Lung)
     if doRecal : 
-        res.to_csv('{}Nice-Dijon-fusion_recal_{}.csv'.format('datas/FAIR/', str(run_model)),sep=';',index=0, header=0) 
+        res.to_csv('{}Nice-Dijon-fusion_recal_{}.csv'.format('datas/', str(run_model)),sep=';',index=0, header=0) 
     else : 
-        res.to_csv('{}Nice-Dijon-fusion_{}.csv'.format('datas/FAIR/', str(run_model)),sep=';',index=0, header=0) 
+        res.to_csv('{}Nice-Dijon-fusion_{}.csv'.format('datas/', str(run_model)),sep=';',index=0, header=0) 
     return data_recon
 
 def RunAutoEncoder_unsupervised(net, criterion, optimizer, lr_scheduler, train_dl, train_len, N_EPOCHS, outputPath, SAVE_FILE,\
@@ -2044,7 +2044,7 @@ def ReadData(file_name = 'MyeloidProgenitors.csv', TIRO_FORMAT = True,model='', 
             feature_name = data_pd['Name'].values.astype(str)[1:]
             label_name = np.unique(Y)
         elif not TIRO_FORMAT:
-            data_pd = pd.read_csv('datas/FAIR/'+ str(file_name),delimiter=',',header=None,dtype='unicode')
+            data_pd = pd.read_csv('datas/'+ str(file_name),delimiter=',',header=None,dtype='unicode')
             index_root = data_pd[data_pd.iloc[:,-1]=='root'].index.tolist()
             data = data_pd.drop(index_root).values
             X = data[1:,:-1].astype(float)
@@ -2063,7 +2063,7 @@ def ReadData(file_name = 'MyeloidProgenitors.csv', TIRO_FORMAT = True,model='', 
             
         
         elif TIRO_FORMAT:
-            data_pd = pd.read_csv('datas/FAIR/'+ str(file_name),delimiter=';', decimal=",", header=0, encoding = 'ISO-8859-1')
+            data_pd = pd.read_csv('datas/'+ str(file_name),delimiter=';', decimal=",", header=0, encoding = 'ISO-8859-1')
             #data_pd = pd.read_csv('datas/FAIR/'+ str(file_name),delimiter=',', decimal=".", header=0, encoding = 'ISO-8859-1')
             X = (data_pd.iloc[1:,1:].values.astype(float)).T
             Y = data_pd.iloc[0,1:].values.astype(np.int64)

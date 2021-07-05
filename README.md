@@ -44,20 +44,20 @@ Here is a list of modifiable parameters with our values for "Script_autoencoder_
 
 | Parameters | line in code | recommended value |
 |:--------------|:-------------:|--------------:|
-| ETA | 61 | 75|
-| Seed | 60 | 4, 5, 6 |
-| Database | 86 | Lung |
-| Projection | 124 | l11 |
-| Metabolomic selection | 135 | True |
-| Scaling | 142 | True |
+| ETA | 80 | 75|
+| Seed | 79 | 4, 5, 6 |
+| Database | 105 | Lung |
+| Projection | 143 | l11 |
+| Metabolomic selection | 155 | True |
+| Scaling | 161 | True |
 
 Here is a list of modifiable parameters with our values for "script_diagnostic.py": 
 
 | Parameters | line in code | recommended value |
 |:--------------|:-------------:|--------------:|
-| ETA | 128 | 600 |
-| Seed | 59 | 5 |
-| Database | 84 | Lung |
-| Projection | 123 | l11 |
-| Metabolomic selection | 138 | False |
-| Scaling | 144 | True |
+| ETA | 85 | 600 |
+| Seed | 84 | 5 |
+| Database | 111 | Lung |
+| Projection | 150 | l11 |
+| Metabolomic selection | 161 | False |
+| Scaling | 167 | True |

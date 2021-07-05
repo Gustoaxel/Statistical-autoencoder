@@ -3,24 +3,44 @@
 Copyright   I3S CNRS UCA 
 
 This code is an implementation of statistical evaluation of our autoencoder discribe in the article :
-Efficient diagnostic using the latent space ofa Non-Parametric Supervised Autoencoderfor 
-metabolomics datasets
+An efficient diagnostic that uses the latent space of a Non-Parametric Supervised Autoencoder 
+for metabolomic datasets of clinical studies.
 
-When using this code , please cite Barlaud, M., Guyard, F.: Learning sparse deep neural networks 
-using efficient structured projections on convex constraints for green ai. ICPR 2020 Milan Italy (2020)
+When using this code , please cite
+
+ Barlaud, Michel and  Guyard, Frederic
+ Learning sparse deep neural networks using efficient structured projections on convex constraints for green ai. ICPR 2020 Milan Italy (2020)
+
+@INPROCEEDINGS{9412162,  
+               author={Barlaud, Michel and Guyard, Frédéric},  
+               booktitle={2020 25th International Conference on Pattern Recognition (ICPR)},   
+               title={Learning sparse deep neural networks using efficient structured projections on convex constraints for green AI},  
+               year={2021}, 
+               volume={}, 
+               number={}, 
+               pages={1566-1573}, 
+               doi={10.1109/ICPR48806.2021.9412162}}
 
 and 
 
-Axel Gustovic, Celine Ocelli, Thierry Pourcher and Michel Barlaud : Efficient diagnostic using the 
-latent space ofa Non-Parametric Supervised Autoencoderfor metabolomics datasets
+Axel Gustovic, Celine Ocelli, Thierry Pourcher and Michel Barlaud :
+    An efficient diagnostic that uses the latent space of a Non-Parametric Supervised Autoencoder 
+for metabolomic datasets of clinical studies.
 
-Params : 
+Parameters : 
     
-    - Seed (line 60)
-    - Database (line 86)
-    - Projection (line 124)
-    - ETA (line 61)
-    - Standardization (line 142)
+    - Seed (line 79)
+    - Database (line 105)
+    - Projection (line 143)
+    - Constraint ETA (line 80)
+    - Scaling (line 161)
+    - Metabolomic selection (line 155)
+    
+Results_stat
+    -accuracy
+    -Probability
+    -Top features 
+    
     
     
 """
@@ -97,7 +117,7 @@ if __name__=='__main__':
     # Save Results or not
     SAVE_FILE = True
     # Output Path 
-    outputPath =  'results/'+ file_name.split('.')[0] + '/'
+    outputPath =  'results_stat/'+ file_name.split('.')[0] + '/'
     if not os.path.exists(outputPath): # make the directory if it does not exist
         os.makedirs(outputPath)
         

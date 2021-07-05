@@ -5,27 +5,46 @@
 """
 Copyright   I3S CNRS UCA 
 
-This code is an implementation of realistic diagnostic clinical simulation discribe in the article :
-Efficient diagnostic using the latent space ofa Non-Parametric Supervised Autoencoderfor 
-metabolomics datasets
+This code is an implementation of diagnostic evaluation of our autoencoder discribe in the article :
+An efficient diagnostic that uses the latent space of a Non-Parametric Supervised Autoencoder 
+for metabolomic datasets of clinical studies.
 
-When using this code , please cite Barlaud, M., Guyard, F.: Learning sparse deep neural networks 
-using efficient structured projections on convex constraints for green ai. ICPR 2020 Milan Italy (2020)
+When using this code , please cite
+
+ Barlaud, Michel and  Guyard, Frederic
+ Learning sparse deep neural networks using efficient structured projections on convex constraints for green ai. ICPR 2020 Milan Italy (2020)
+
+@INPROCEEDINGS{9412162,  
+               author={Barlaud, Michel and Guyard, Frédéric},  
+               booktitle={2020 25th International Conference on Pattern Recognition (ICPR)},   
+               title={Learning sparse deep neural networks using efficient structured projections on convex constraints for green AI},  
+               year={2021}, 
+               volume={}, 
+               number={}, 
+               pages={1566-1573}, 
+               doi={10.1109/ICPR48806.2021.9412162}}
 
 and 
 
-Axel Gustovic, Celine Ocelli, Thierry Pourcher and Michel Barlaud : Efficient diagnostic using the 
-latent space ofa Non-Parametric Supervised Autoencoderfor metabolomics datasets
+Axel Gustovic, Celine Ocelli, Thierry Pourcher and Michel Barlaud :
+    An efficient diagnostic that uses the latent space of a Non-Parametric Supervised Autoencoder 
+for metabolomic datasets of clinical studies.
 
-Params : 
+Parameters : 
     
-    - Seed (line 65)
-    - Database (line 92)
-    - Projection (line 131)
-    - ETA (line 66)
-    - Scaling (line 148)
+    - Seed (line 44)
+    - Database (line 111)
+    - Projection (line 150)
+    - Constraint ETA (line 85)
+    - Scaling (line 167)
+    - Metabolomic selection (line 161)
     
-
+Results_diag
+    -latent space 
+    -Top features 
+    
+    
+    
 """
 import os
 import sys
@@ -338,9 +357,9 @@ if __name__=='__main__':
         
     try : 
         df = pd.read_csv('{}Labelspred_softmax.csv'.format(outputPath),sep=';', header = 0 )
-        data_pd = pd.read_csv('datas/FAIR/'+ str(file_name[:-12])+ ".csv",delimiter=';', decimal=",", header=0, encoding = 'ISO-8859-1')
+        data_pd = pd.read_csv('datas/'+ str(file_name[:-12])+ ".csv",delimiter=';', decimal=",", header=0, encoding = 'ISO-8859-1')
     except : 
-        data_pd = pd.read_csv('datas/FAIR/'+ str(file_name),delimiter=';', decimal=",", header=0, encoding = 'ISO-8859-1')
+        data_pd = pd.read_csv('datas/'+ str(file_name),delimiter=';', decimal=",", header=0, encoding = 'ISO-8859-1')
             
     proba = df.values[:,2:].astype(float)
     
