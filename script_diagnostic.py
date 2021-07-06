@@ -32,7 +32,7 @@ for metabolomic datasets of clinical studies.
 
 Parameters : 
     
-    - Seed (line 44)
+    - Seed (line 84)
     - Database (line 111)
     - Projection (line 150)
     - Constraint ETA (line 85)

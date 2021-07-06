@@ -3,10 +3,10 @@
 Copyright   I3S CNRS UCA 
 
 This code is an implementation of the other methods used for comparison in the article :
-Efficient diagnostic using the latent space ofa Non-Parametric Supervised Autoencoderfor 
-metabolomics datasets
+ An efficient diagnostic that uses the latent space of a Non-Parametric Supervised Autoencoder 
+for metabolomic datasets of clinical studies.
 
-Params : 
+Parameters : 
     
     - Seed (line 38)
     - Database (line 37)
@@ -14,7 +14,11 @@ Params :
     - Algorithme to compare (line 39)
     - Features extraction (line 40)
     
-
+Results : 
+    - Accuracy (accTestCompare_final)
+    - Top features (df_featureList_final)
+    - Metrics (aucTestCompare_final)
+    
 
 """
 import sys
@@ -37,6 +41,7 @@ if __name__ == '__main__':
     filename = 'LUNG.csv'
     Seed = [6, 7]
     alglist = ['plsda', 'RF' ] # Other ML algorithm to compare
+    # alglist = ['plsda', 'RF', 'svm' ] # SVM could be slow
     doTopgenes = True         # Features selection 
 
     
