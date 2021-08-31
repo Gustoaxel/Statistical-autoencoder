@@ -936,7 +936,6 @@ def RunAutoEncoder(net, criterion, optimizer, lr_scheduler, train_dl, train_len,
       
         # Do projection at last epoch (GRADIENT_MASK)
         if run_model=='ProjectionLastEpoch' and e==(N_EPOCHS-1):
-            #net.load_state_dict(torch.load(str(outputPath)+"best_net"))
             net_parameters = list(net.parameters())
             for index,param in enumerate(net_parameters):
                 if DO_PROJ_middle == False and \
