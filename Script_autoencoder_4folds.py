@@ -29,12 +29,12 @@ for metabolomic datasets of clinical studies.
 
 Parameters : 
     
-    - Seed (line 79)
-    - Database (line 105)
-    - Projection (line 143)
-    - Constraint ETA (line 80)
-    - Scaling (line 161)
-    - Metabolomic selection (line 155)
+    - Seed (line 80)
+    - Database (line 106) (variable file_name)
+    - Projection (line 145)
+    - Constraint ETA (line 81)
+    - Scaling (line 163)
+    - Metabolomic selection (line 156)
     
 Results_stat
     -accuracy
@@ -77,7 +77,7 @@ if __name__=='__main__':
     # Covid : ETA = 200 Seed = [4, 5, 6]
    
     # Set seed
-    Seed = [5]
+    Seed = [4,5,6]
     ETA = 75  #Control feature selection 
     
     
@@ -85,8 +85,8 @@ if __name__=='__main__':
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     
     nfold = 4
-    N_EPOCHS = 10
-    N_EPOCHS_MASKGRAD = 10      # number of epochs for training masked gradient 
+    N_EPOCHS = 20
+    N_EPOCHS_MASKGRAD = 20      # number of epochs for training masked gradient 
     LR = 0.0005   # Learning rate    
     BATCH_SIZE=8     # Optimize the trade off between accuracy and Computational time 
     LOSS_LAMBDA = 0.0005         # Total loss =λ * loss_autoencoder +  loss_classification
@@ -106,6 +106,7 @@ if __name__=='__main__':
     file_name = 'LUNG.csv'
 #    file_name = 'COVID.csv'
 #    file_name = "BRAIN_MID.csv"
+
 
 
     
@@ -158,7 +159,7 @@ if __name__=='__main__':
 #    PERFORM_MA = True
     PERFORM_MA = False
     
-    # Saceling 
+    # Scaling 
     doScale = True 
 #    doScale = False
     
@@ -249,14 +250,13 @@ if __name__=='__main__':
                         outputPath,  SAVE_FILE,  zero_list, run_model, criterion_classification, LOSS_LAMBDA, feature_name, TYPE_PROJ, ETA,AXIS=AXIS )    
                 print("\n--------Finised masked gradient-----")
                 print("-----------------------")
-            #np.save(file_name.split('.')[0]+'_Loss_'+str(run_model), epoch_loss)
+
             
             data_encoder = data_encoder.cpu().detach().numpy() 
             data_decoded =  data_decoded.cpu().detach().numpy() 
             
             data_encoder_test, data_decoded_test, class_train, class_test , topGenesCol, correct_pred, softmax, Ytrue, Ypred  = ft.runBestNet(train_dl, test_dl, best_test, outputPath , i , class_len , net, feature_name , test_len)
-          #  data_encoder_test, data_decoded_test, class_train, class_test , topGenesCol, correct_pred = ft.runBestNet(train_dl, test_dl, best_test, outputPath , i , class_len , net, feature_name , test_len)
-            
+
             
             
             
@@ -265,11 +265,11 @@ if __name__=='__main__':
                 if i == 0 : 
                     Ytruef = Ytrue
                     Ypredf = Ypred
-                    LP_test = data_encoder_test.numpy()
+                    LP_test = data_encoder_test.detach().cpu().numpy()
                 else : 
                     Ytruef = np.concatenate((Ytruef, Ytrue))
                     Ypredf = np.concatenate((Ypredf, Ypred))
-                    LP_test = np.concatenate((LP_test, data_encoder_test.numpy()))
+                    LP_test = np.concatenate((LP_test, data_encoder_test.detach().cpu().numpy()))
             
             accuracy_train[s*4 + i] = class_train
             accuracy_test[s*4 + i] = class_test
@@ -288,18 +288,18 @@ if __name__=='__main__':
             # ARI score
             
             data_train[s*4 + i,1]  = metrics.adjusted_rand_score(labels_encoder, labelpredict)    
-            data_test[s*4 + i,1] = metrics.adjusted_rand_score(Ytest, data_encoder_test[:,:-1].max(1)[1].numpy())
+            data_test[s*4 + i,1] = metrics.adjusted_rand_score(Ytest, data_encoder_test[:,:-1].max(1)[1].detach().cpu().numpy())
             
             
             
             # AMI Score 
             data_train[s*4 + i,2]  = metrics.adjusted_mutual_info_score(labels_encoder, labelpredict)
-            data_test[s*4 + i,2] = metrics.adjusted_mutual_info_score(Ytest,data_encoder_test[:,:-1].max(1)[1].numpy() )
+            data_test[s*4 + i,2] = metrics.adjusted_mutual_info_score(Ytest,data_encoder_test[:,:-1].max(1)[1].detach().cpu().numpy() )
     
             #UAC Score 
             if class_len == 2 : 
                 data_train[s*4 + i,3]  = metrics.roc_auc_score(labels_encoder, labelpredict)
-                data_test[s*4 + i,3] = metrics.roc_auc_score(Ytest,data_encoder_test[:,:-1].max(1)[1].numpy() )
+                data_test[s*4 + i,3] = metrics.roc_auc_score(Ytest,data_encoder_test[:,:-1].max(1)[1].detach().cpu().numpy() )
             
             # F1 precision recal 
             data_train[s*4 + i,4:] = precision_recall_fscore_support(labels_encoder, labelpredict, average='macro')[:-1]
@@ -367,39 +367,12 @@ if __name__=='__main__':
             df_topGenes_mean.to_csv('{}{}_topGenes_Mean_{}_{}.csv'.format(outputPath,str(TYPE_PROJ_NAME),method,str(nb_samples) ),sep=';')
     
         s+= 1
-        
-    #if class_len ==2 : 
-    #    if len(Seed)==1 : 
-    #        pass
-    #    else : 
-    #        df_softmax = df_softmax.drop(["Name", "Name_", "Labels_", "Proba class 1", "Proba class 1_" ], axis = 1)
-        #df_softmax.columns = ["Labels", "1", "2", "3"]
-        
-    #    for l in range(df_softmax.shape[0]):
-    #        if df_softmax.iloc[l,0] == 1:
-    #            df_softmax.iloc[l,:] = df_softmax.iloc[l,:].where(df_softmax.iloc[l,1:] > 0.5)
-    #        else:
-    #            df_softmax.iloc[l,:] = df_softmax.iloc[l,:].where(df_softmax.iloc[l,1:] < 0.5)
-    #    df_softmax = df_softmax.dropna(how='all')
 
-        
-    #try : 
-   #     df = pd.read_csv('{}Labelspred_softmax.csv'.format(outputPath),sep=';', header = 0 )
-   #     data_pd = pd.read_csv('datas/FAIR/'+ str(file_name[:-12])+ ".csv",delimiter=';', decimal=",", header=0, encoding = 'ISO-8859-1')
-   # except : 
-   #     data_pd = pd.read_csv('datas/FAIR/'+ str(file_name),delimiter=';', decimal=",", header=0, encoding = 'ISO-8859-1')
-            
-    #proba = df.values[:,2:].astype(float)
-    
-    #df.index = df.iloc[:,0]
-    #df = df.join(data_pd.T , rsuffix='_' , how = 'right')
-    #df.iloc[: , 1:4].to_csv('{}Labelspred_softmax.csv'.format(outputPath),sep=';')
     
     
     df_accTrain, df_acctest = ft.showClassResult(accuracy_train, accuracy_test, nfold*len(Seed), label_name)
     df_metricsTrain, df_metricstest = ft.showMetricsResult(data_train, data_test, nfold*len(Seed))
-    # print sparsity  
-    #print('\n best test accuracy:',best_test/float(test_len))
+
     
     # Reconstruction by using the centers in laten space and datas after interpellation
     center_mean,  center_distance = ft.Reconstruction(0.2, data_encoder, net, class_len )
@@ -408,11 +381,8 @@ if __name__=='__main__':
     if Do_pca and Do_tSNE:
         tit = "Latent Space"
         ft.ShowPcaTsne(X, Y, data_encoder, center_distance, class_len , tit )
-        tit = "Latent Space Test"
-        #ft.ShowPcaTsne(X, Y, data_encoder_test.numpy(), center_distance, class_len , tit)
-        #ft.ShowPcaTsne(X, Y, LP_test, center_distance, class_len , tit)
-    
-    # Do Implementation of Metropolis and pass to decoder for reconstruction
+
+
     if DoTopGenes:
         df = pd.read_csv('{}{}_topGenes_Mean_{}_{}.csv'.format(outputPath,str(TYPE_PROJ_NAME),method,str(nb_samples) ),sep=';' , header = 0 , index_col = 0 )
         df_val = df.values[:,1:].astype(float) 
@@ -436,13 +406,9 @@ if __name__=='__main__':
             sns.kdeplot(1-distrib,bw=0.05,shade = True )
         else :
             sns.kdeplot(distrib, bw=0.1, shade=True)
-            fvlist = distrib.where(distrib < 0.5).dropna()
-            #print(len(fvlist)/len(softmax['Labels']))
 
-        #sns.kdeplot(distrib,bw=0.1, shade=True)
-        #sns.displot(distrib,kind=kde, bw_adjust=1 ,fill=True)
-        lab += 1
-    # get weights and spasity
+            lab += 1
+
     spasity_percentage_entry = {}
     for keys in spasity_w_entry.keys():
         spasity_percentage_entry[keys]= spasity_w_entry[keys]*100
@@ -467,18 +433,7 @@ if __name__=='__main__':
     titile_list = [x for x in spasity_w.keys()]
     ft.show_img(layer_list,layer_list_decoder, file_name)
     
-    #plt.figure()
-    #plt.title("Confusion matrix")
-    #cm = confusion_matrix(Ytruef, Ypredf)
-    #sns.heatmap(cm , annot=True, cmap="YlGnBu")
 
-    #df_correct = pd.read_csv('datas/FAIR/'+ str(file_name),delimiter=';', decimal=",", header=0, encoding = 'ISO-8859-1')
-    #df_correct = df_correct.loc[: , ["Name"] + correct_prediction]
-
-    #df_correct.to_csv(outputPath+ str(file_name)[:-4]+"_correct.csv",sep=';', decimal=",", index = 0)
-    
-    # Model Analyzer
-    # Make sure the net for "MA.set_model(net)" you used is the final net (by return the final 'net' after runNet() ) 
     if PERFORM_MA:
         print("Running Model Analyzer..." )
         MA = ma.Model_Analyzer()     
@@ -502,7 +457,7 @@ if __name__=='__main__':
         plt.show()
     if SAVE_FILE:
         df_acctest.to_csv('{}{}_acctest.csv'.format(outputPath,str(TYPE_PROJ_NAME)),sep=';') 
-        #df_topGenes.to_csv('{}{}_topGenes_{}_{}.csv'.format(outputPath,str(TYPE_PROJ_NAME),method,str(nb_samples) ),sep=';')
+
 
         print("Save topGenes results to: ' {} ' ".format(outputPath) )
         

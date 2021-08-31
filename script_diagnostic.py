@@ -277,11 +277,11 @@ if __name__=='__main__':
                 if i == 0 : 
                     Ytruef = Ytrue
                     Ypredf = Ypred
-                    LP_test = data_encoder_test.numpy()
+                    LP_test = data_encoder_test.detach().cpu().numpy()
                 else : 
                     Ytruef = np.concatenate((Ytruef, Ytrue))
                     Ypredf = np.concatenate((Ypredf, Ypred))
-                    LP_test = np.concatenate((LP_test, data_encoder_test.numpy()))
+                    LP_test = np.concatenate((LP_test, data_encoder_test.detach().cpu().numpy()))
             
             accuracy_train[s*4 + i] = class_train
             accuracy_test[s*4 + i] = class_test

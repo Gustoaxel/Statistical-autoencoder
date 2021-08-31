@@ -8,11 +8,11 @@ for metabolomic datasets of clinical studies.
 
 Parameters : 
     
-    - Seed (line 38)
-    - Database (line 37)
-    - Scaling(line 51)
-    - Algorithme to compare (line 39)
-    - Features extraction (line 40)
+    - Seed (line 42)
+    - Database (line 41)
+    - Scaling(line 56)
+    - Algorithme to compare (line 43)
+    - Features extraction (line 45)
     
 Results : 
     - Accuracy (accTestCompare_final)
