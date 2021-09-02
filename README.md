@@ -62,3 +62,4 @@ Here is a list of modifiable parameters with our values for "script_diagnostic.p
 | Metabolomic selection | 161 | False |
 | Scaling | 167 | True |
 
+![alt text](./Doc/Lung-kernel.png)
