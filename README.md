@@ -14,6 +14,8 @@ Axel Gustovic, Celine Ocelli, Thierry Pourcher and Michel Barlaud : An efficient
 ***
 1. [Installation](#installation)
 2. [How to use](#use)
+3. [Results Script_autoencoder_4folds](#resultstat)
+4. [Results Script_diagnostics](#resultdiag)
   
     
 ## Installation : 
@@ -26,7 +28,9 @@ Then, to execute our script, we will need several dependencies. To install them 
 $ conda install -c anaconda pip
 $ pip install -r requirements.txt 
 ```
-(Warning, before launching this command you must go to the directory where the requirements.txt is located)
+![alt text](./Doc/console.PNG)
+
+(Warning, before launching this command you must go to the directory where the requirements.txt is located by using "cd" command in the console)
 
 To install pytorch make sure you have a c++ compiler. If this is not the case, please follow the instructions in this link: https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation?view=msvc-160 for windows or install Xcode app if you use mac os
 
@@ -36,30 +40,83 @@ Everything is ready, now you have to open the code in spyder (top left button). 
 
 Then run it with the Run files button. It is possible to change the parameters and the database studied directly in the code. 
 
+![alt text](./Doc/startbutton.PNG)
+
 Note that we have provided in this directory only the LUNG and Brain databases. To obtain the Covid database please contact Barlaud Michel (barlaud@i3s.unice.fr) or Pourcher Thierry (thierry.pourcher@univ-cotedazur.fr)
 
-To use your own data it is important that it is in the same format as the provided databases. If this is the case then you just have to put the .csv file in the datas/FAIR directory and then modify the file_name variable = "something.csv" in the code. 
+To use your own data it is important that it is in the same format as the provided databases. If this is the case then you just have to put the .csv file in the datas directory and then modify the file_name variable = "something.csv" in the code. 
 
 Here is a list of modifiable parameters with our values for "Script_autoencoder_4folds.py": 
 
-| Parameters | line in code | recommended value |
-|:--------------|:-------------:|--------------:|
-| ETA | 81 | 75|
-| Seed | 80 | 4, 5, 6 |
-| Database | 106 | Lung |
-| Projection | 145 | l11 |
-| Metabolomic selection | 156 | True |
-| Scaling | 163 | True |
+| Parameters | Name | Line in code | Recommended Value | Utility |
+|:--------------:|:-------------:|:--------------:|:--------------:|:--------------:|
+| ETA | ETA | 81 | 75 | Influences the number of features to use |
+| Seed | Seed | 80 | [4, 5, 6] | Initialize the neural network parameters |
+| Database | file_name | 106 | Lung | Name of the data file |
+| Projection | TYPE_PROJ | 145 | l11 | Regulates the latent space for representation |
+| Metabolomic selection | DoTopGenes | 156 | True | Knowing the features most used by the neural network |
+| Scaling | doScale | 163 | True | data pre-processing |
 
 Here is a list of modifiable parameters with our values for "script_diagnostic.py": 
 
-| Parameters | line in code | recommended value |
-|:--------------|:-------------:|--------------:|
-| ETA | 85 | 600 |
-| Seed | 84 | 5 |
-| Database | 111 | Lung |
-| Projection | 150 | l11 |
-| Metabolomic selection | 161 | False |
-| Scaling | 167 | True |
+| Parameters | Name | Line in code | Recommended Value | Utility |
+|:--------------:|:-------------:|:--------------:|:--------------:|:--------------:|
+| ETA | ETA | 85 | 600 | Influences the number of features to use |
+| Seed | Seed | 84 | [5] | Initialize the neural network parameters |
+| Database | file_name | 111 | Lung | Name of the data file |
+| Projection | TYPE_PROJ | 150 | l11 | Regulates the latent space for representation |
+| Metabolomic selection | DoTopGenes | 161 | False | Knowing the features most used by the neural network |
+| Scaling | doScale | 167 | True | data pre-processing |
 
-![alt text](./Doc/Lung-kernel.png)
+
+## Results Script_autoencoder_4folds : 
+***
+At the end of the script we have results in 3 forms: files save graphics and text data in the console.     
+
+Explanation of the graphs :    
+
+![alt text](./Doc/LSLung.png)   
+Set of patients represented in a 2 dimensional space 
+
+![alt text](./Doc/Lung-kernel.png)   
+Here we represent the probability distribution at the output of the classifier. It gives us a good indication of the certainty we have on the diagnosis
+
+![alt text](./Doc/matweight.png)   
+Weight associated to features by the neural network (gives an indication of the number of features used)
+
+Explanation of the console :      
+
+In the console it is possible to read the accuracy for each conducted experiment as well as several metrics related to this experiment
+
+
+Explanation of the results saved : 
+The program will save several files in the result_stat folder and then the name of your database    
+
+The "Labelspred_softmax.csv" file gives the prediction and the confidence score for each patient   
+The "proj_l11ball_acctest.csv" file gives the accuracy obtained by the network     
+The "proj_l11ball_topGenes_Mean_Captum_dl_300.csv" file groups all the features with the weight that the network has assigned to them    
+
+
+## Results Script_diagnostics : 
+***
+
+At the end of the script we have results in 3 forms: files save graphics and text data in the console : 
+
+Explanation of the graphs :    
+
+![alt text](./Doc/Lung_LS_diag.png)   
+Set of patients represented in a 2 dimensional space. Moreover, it puts forward 2 patients for which we wish to have the diagnosis to know their position in the latent space 
+
+
+
+Explanation of the console :    
+
+In the console it is possible to read the confidence score of our diagnisis for each patients
+
+
+Explanation of the results saved :     
+The program will save several files in the result_diag folder and then the name of your database    
+
+The "Labelspred_softmax.csv" file gives the prediction and the confidence score for each patient   
+ 
+
